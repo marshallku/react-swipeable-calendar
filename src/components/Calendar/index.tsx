@@ -15,6 +15,7 @@ interface CalendarProps {
 
 const INITIAL_SLIDE = 2;
 const MONTH_FORMAT = "yyyy-MM";
+const SWIPER_INDEX = [2, 3, 4, 0, 1];
 
 const cx = classNames(styles, "calendar");
 
@@ -62,7 +63,6 @@ function Calendar({
 
                 for (let i = 0, max = prev.length; i < max; ++i) {
                     const currentIndex = (startIndex + i) % max;
-                    const SWIPER_INDEX = [2, 3, 4, 0, 1];
                     nextState[currentIndex] = newInterval[SWIPER_INDEX[i]];
                 }
 
