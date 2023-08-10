@@ -5,6 +5,7 @@ import { add, eachMonthOfInterval, format, parse, sub } from "date-fns";
 import { classNames } from "@utils";
 import { Month } from "@components";
 import styles from "./index.module.scss";
+import { weekDays } from "@constants";
 
 interface CalendarProps {
     date?: Date;
@@ -82,6 +83,11 @@ function Calendar({
     return (
         <div className={cx()}>
             <div className={cx("__container")}>
+                <div className={cx("__week-days")}>
+                    {weekDays.map((x) => (
+                        <span key={x}>{x}</span>
+                    ))}
+                </div>
                 <Swiper
                     slidesPerView={1}
                     loop

@@ -2,15 +2,34 @@
     position: relative;
     width: 100%;
     height: 100%;
+    user-select: none;
 
     &__container {
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         flex-direction: column;
         overflow: hidden;
+    }
+
+    &__week-days {
+        display: flex;
+        padding: 0 20px;
+
+        > span {
+            padding: 4px 0;
+            flex: 1 1 0;
+            text-align: center;
+
+            &:first-child {
+                color: red;
+            }
+
+            &:last-child {
+                color: blue;
+            }
+        }
     }
 
     :global {
