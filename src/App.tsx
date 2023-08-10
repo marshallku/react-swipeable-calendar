@@ -1,7 +1,7 @@
-import "./App.css";
+import { Calendar } from "./components";
 
 function App() {
-    return <div></div>;
+    return <Calendar date={new Date()} />;
 }
 
 export default App;

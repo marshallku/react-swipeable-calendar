@@ -1,0 +1,19 @@
+.calendar {
+    display: block;
+    height: 100%;
+
+    &__container {
+        display: grid;
+        height: 100%;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 4px;
+    }
+
+    &__day {
+        text-align: center;
+
+        &--different-month {
+            opacity: 0.75;
+        }
+    }
+}
