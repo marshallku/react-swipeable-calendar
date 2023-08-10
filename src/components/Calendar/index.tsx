@@ -1,13 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-    eachDayOfInterval,
-    endOfMonth,
-    endOfWeek,
-    isSameMonth,
-    startOfMonth,
-    startOfWeek,
-} from "date-fns";
+import { useEffect, useMemo, useState } from "react";
+import { add, eachMonthOfInterval, format, parse, sub } from "date-fns";
 import { classNames } from "@utils";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Month } from "@components";
 import styles from "./index.module.scss";
 
 interface CalendarProps {
@@ -15,25 +10,26 @@ interface CalendarProps {
     onDateClick?(date: Date): void;
 }
 
+const INITIAL_SLIDE = 2;
+const MONTH_FORMAT = "yyyy-MM";
+
 const cx = classNames(styles, "calendar");
 
 function Calendar({ date = new Date(), onDateClick }: CalendarProps) {
-    const days = useMemo(
-        () =>
-            eachDayOfInterval({
-                start: startOfWeek(startOfMonth(date)),
-                end: endOfWeek(endOfMonth(date)),
-            }),
-        [date]
-    );
     const [currentDate, setCurrentDate] = useState(date);
-
-    const handleClick = useCallback(
-        (day: Date) => {
-            onDateClick?.(day);
-            setCurrentDate(day);
-        },
-        [onDateClick]
+    const currentMonth = useMemo(
+        () => format(currentDate, MONTH_FORMAT),
+        [currentDate]
+    );
+    const firstDayOfCurrentMonth = useMemo(
+        () => parse(currentMonth, MONTH_FORMAT, new Date()),
+        [currentMonth]
+    );
+    const [monthSlides, setMonthSlides] = useState<Date[]>(
+        eachMonthOfInterval({
+            start: sub(firstDayOfCurrentMonth, { months: 2 }),
+            end: add(firstDayOfCurrentMonth, { months: 2 }),
+        })
     );
 
     useEffect(() => {
@@ -43,23 +39,24 @@ function Calendar({ date = new Date(), onDateClick }: CalendarProps) {
     return (
         <div className={cx()}>
             <div className={cx("__container")}>
-                {days.map((day) => (
-                    <div
-                        role="button"
-                        tabIndex={-1}
-                        key={day.toString()}
-                        className={cx(
-                            "__day",
-                            !isSameMonth(day, currentDate) &&
-                                "__day--different-month"
-                        )}
-                        onClick={() => {
-                            handleClick(day);
-                        }}
-                    >
-                        {day.getDate()}
-                    </div>
-                ))}
+                <Swiper
+                    slidesPerView={1}
+                    centeredSlides
+                    initialSlide={INITIAL_SLIDE}
+                >
+                    {0 < monthSlides.length &&
+                        monthSlides.map((month) => (
+                            <SwiperSlide
+                                key={`${month.getFullYear()}-${month.getMonth()}`}
+                            >
+                                <Month
+                                    month={month}
+                                    setCurrentDate={setCurrentDate}
+                                    onDateClick={onDateClick}
+                                />
+                            </SwiperSlide>
+                        ))}
+                </Swiper>
             </div>
         </div>
     );
