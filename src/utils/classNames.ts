@@ -14,6 +14,11 @@ export default function classNames(
         for (let i = 0, max = classNames.length; i < max; i++) {
             const name = classNames[i];
 
+            // HACK: To add extra modifier in root
+            if (name === "") {
+                classes.push(styles[rootClassName] || rootClassName);
+            }
+
             if (!name) {
                 continue;
             }
