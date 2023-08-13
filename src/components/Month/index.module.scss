@@ -1,6 +1,21 @@
 .month {
+    $self: &;
     display: block;
     height: 100%;
+    transition: height 0.5s ease-in-out;
+
+    &--MEDIUM {
+        height: 100vw;
+    }
+
+    &--WEEK {
+        transition: transform 0.5s ease-in-out, height 0.5s ease-in-out;
+        height: 20vw;
+
+        #{$self}__day {
+            height: 20vw;
+        }
+    }
 
     &__container {
         display: grid;
@@ -22,12 +37,12 @@
             }
 
             &--column-#{$i} {
-                grid-column: #{$i}/#{$i}
+                grid-column: #{$i}/#{$i};
             }
         }
     }
 
     &__event {
-        align-self: center
+        align-self: center;
     }
 }
