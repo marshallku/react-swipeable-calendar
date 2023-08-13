@@ -38,14 +38,17 @@ function Month({ month, setCurrentDate, onDateClick }: MonthProps) {
     return (
         <div className={cx()}>
             <div className={cx("__container")}>
-                {days.map((day) => (
+                {days.map((day, i) => (
                     <div
                         role="button"
                         tabIndex={-1}
                         key={day.toString()}
                         className={cx(
                             "__day",
-                            !isSameMonth(day, month) && "__day--different-month"
+                            !isSameMonth(day, month) &&
+                                "__day--different-month",
+                            `__day--column-${(i % 7) + 1}`,
+                            `__day--row-${Math.floor(i / 7) + 1}`
                         )}
                         onClick={() => {
                             handleClick(day);

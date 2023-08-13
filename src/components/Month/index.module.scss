@@ -15,5 +15,19 @@
         &--different-month {
             opacity: 0.75;
         }
+
+        @for $i from 1 through 7 {
+            &--row-#{$i} {
+                grid-row: $i;
+            }
+
+            &--column-#{$i} {
+                grid-column: #{$i}/#{$i}
+            }
+        }
+    }
+
+    &__event {
+        align-self: center
     }
 }
