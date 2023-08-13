@@ -95,18 +95,17 @@ function Calendar({
                     initialSlide={INITIAL_SLIDE}
                     onTransitionEnd={handleMonthTransitionChange}
                 >
-                    {0 < monthSlides.length &&
-                        monthSlides.map((month) => (
-                            <SwiperSlide
-                                key={`${month.getFullYear()}-${month.getMonth()}`}
-                            >
-                                <Month
-                                    month={month}
-                                    setCurrentDate={setCurrentDate}
-                                    onDateClick={onDateClick}
-                                />
-                            </SwiperSlide>
-                        ))}
+                    {monthSlides.map((month) => (
+                        <SwiperSlide
+                            key={`${month.getFullYear()}-${month.getMonth()}`}
+                        >
+                            <Month
+                                month={month}
+                                setCurrentDate={setCurrentDate}
+                                onDateClick={onDateClick}
+                            />
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </div>
         </div>
