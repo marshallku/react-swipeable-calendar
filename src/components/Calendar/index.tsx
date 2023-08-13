@@ -3,9 +3,10 @@ import type SwiperClass from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { add, eachMonthOfInterval, format, parse, sub } from "date-fns";
 import { classNames } from "@utils";
-import { Month } from "@components";
-import styles from "./index.module.scss";
+import { Month } from "..";
 import { weekDays } from "@constants";
+import "swiper/css";
+import styles from "./index.module.scss";
 
 interface CalendarProps {
     date?: Date;
