@@ -16,7 +16,10 @@ interface CalendarProps {
 
 const INITIAL_SLIDE = 2;
 const MONTH_FORMAT = "yyyy-MM";
-const SWIPER_INDEX = [2, 3, 4, 0, 1];
+/**
+ * 해당 index에서 제일 빠른 날짜가 위치하는 index
+ */
+const SWIPER_INDEX = [2, 1, 0, 4, 3];
 
 const cx = classNames(styles, "calendar");
 
