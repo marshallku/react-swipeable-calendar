@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+    ReactNode,
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import type SwiperClass from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { add, eachMonthOfInterval, format, parse, sub } from "date-fns";
@@ -7,10 +14,13 @@ import { Month } from "@components";
 import styles from "./index.module.scss";
 import { weekDays } from "@constants";
 
+type CalendarMode = "month-full" | "month-medium" | "week";
+
 interface CalendarProps {
     date?: Date;
     onDateClick?(date: Date): void;
     onMonthChange?(date: Date): void;
+    content?: ReactNode;
 }
 
 const INITIAL_SLIDE = 2;
@@ -23,7 +33,9 @@ function Calendar({
     date = new Date(),
     onDateClick,
     onMonthChange,
+    content,
 }: CalendarProps) {
+    const [mode, setMode] = useState<CalendarMode>("month-full");
     const [currentDate, setCurrentDate] = useState(date);
     const currentMonth = useMemo(
         () => format(currentDate, MONTH_FORMAT),
@@ -81,7 +93,7 @@ function Calendar({
     }, [date]);
 
     return (
-        <div className={cx()}>
+        <div className={cx("", `--mode-${mode}`)}>
             <div className={cx("__container")}>
                 <div className={cx("__week-days")}>
                     {weekDays.map((x) => (
@@ -102,11 +114,29 @@ function Calendar({
                             <Month
                                 month={month}
                                 setCurrentDate={setCurrentDate}
-                                onDateClick={onDateClick}
+                                onDateClick={(date) => {
+                                    onDateClick?.(date);
+                                    setMode((prev) =>
+                                        prev === "month-full"
+                                            ? "month-medium"
+                                            : prev
+                                    );
+                                }}
                             />
                         </SwiperSlide>
                     ))}
                 </Swiper>
+            </div>
+            <div
+                className={cx("__content")}
+                onClick={() => {
+                    setMode("week");
+                }}
+                onDoubleClick={() => {
+                    setMode("month-full");
+                }}
+            >
+                {content}
             </div>
         </div>
     );
