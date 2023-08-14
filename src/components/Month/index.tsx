@@ -64,8 +64,9 @@ function Month({
             <div className={cx("__container")}>
                 {days.map((day, i) => {
                     const currentWeek = Math.floor(i / 7) + 1;
+                    const isCurrentDate = isSameDay(day, currentDate);
 
-                    if (isSameDay(day, currentDate)) {
+                    if (isCurrentDate) {
                         weekRef.current = currentWeek;
                     }
 
@@ -76,6 +77,7 @@ function Month({
                             key={day.toString()}
                             className={cx(
                                 "__day",
+                                isCurrentDate && "__day--current",
                                 !isSameMonth(day, month) &&
                                     "__day--different-month",
                                 `__day--column-${(i % 7) + 1}`,
