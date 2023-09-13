@@ -225,7 +225,6 @@ function Calendar({
                     <Swiper
                         slidesPerView={1}
                         loop
-                        centeredSlides
                         initialSlide={INITIAL_SLIDE}
                         onTransitionEnd={handleMonthTransitionChange}
                     >
