@@ -182,6 +182,8 @@ function Calendar({
             touchStartCoordinate.current == null ||
             touchEndCoordinate.current == null
         ) {
+            touchStartCoordinate.current == null;
+            touchEndCoordinate.current == null;
             return;
         }
 
