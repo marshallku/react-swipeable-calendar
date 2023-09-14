@@ -20,10 +20,10 @@ import {
 } from "date-fns";
 import { classNames, fit } from "@utils";
 import { weekDays } from "@constants";
+import { Mode, Nullable } from "@types";
 import { Month } from "..";
 import "swiper/css";
 import styles from "./index.module.scss";
-import { Mode, Nullable } from "@types";
 
 export interface CalendarProps {
     date?: Date;
